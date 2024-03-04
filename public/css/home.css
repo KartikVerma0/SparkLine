@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css2?family=Codystar&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Darker+Grotesque&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow: hidden;
+}
+
+.main-headline {
+    font-family: "Codystar", sans-serif;
+    font-size: 5.7rem;
+    text-align: right;
+}
+
+.main-para {
+    font-family: "Darker Grotesque", sans-serif;
+    font-size: 2rem;
+    text-align: right;
+}
+
+.main-login-btn {
+    background-color: #d34a52;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    font-size: 1.1rem;
+    font-family: "Chakra Petch", sans-serif;
+    border-radius: 2rem;
+
+    margin-right: 2rem;
+}
+
+.main-login-btn:hover {
+    background-color: #d1575f;
+}
+.main-create-btn {
+    background-color: transparent;
+    color: #d34a52;
+    padding: 0.75rem 1.5rem;
+    font-size: 1.1rem;
+    font-family: "Chakra Petch", sans-serif;
+    border-radius: 2rem;
+    border: 1px solid #d34a52;
+}
+
+.main-create-btn:hover {
+    background-color: #d1575f;
+    color: white;
+}
+
+.custom-img-position {
+    left: -2rem;
+    bottom: -2rem;
+    z-index: -1;
+    opacity: 0.5;
+}
+
+.custom-img-position > img {
+    width: 35vw;
+}

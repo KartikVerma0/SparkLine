@@ -1,0 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Beau+Rivage&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500&display=swap");
+.nav-logo-text {
+    font-family: "Beau Rivage", cursive;
+    font-size: 2.5rem;
+}
+
+.nav-login-btn {
+    background-color: #d34a52;
+    color: white;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-family: "Chakra Petch", sans-serif;
+    border-radius: 1.5rem;
+}
+
+.nav-login-btn:hover {
+    background-color: #d1575f;
+}

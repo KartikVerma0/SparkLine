@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="images/logo.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/partials/navbar.css">
+    <link rel="stylesheet" href="css/home.css">
+    <title>SparkLine</title>
+</head>
+
+<body>
+    <%- include("partials/navbar") %>
+        <div class="mx-16 flex flex-col items-end">
+            <h1 class="hidden">SparkLine</h1>
+            <p class="main-headline">Spark conversations, share your world.</p>
+            <p class="main-para">Connect with friends, follow your interests, and join the <br> conversation on
+                SparkLine.
+            </p>
+            <div class="mt-5">
+                <a href="/signin" class="main-login-btn">SIGN IN</a>
+                <a href="/create" class="main-create-btn">CREATE ACCOUNT</a>
+            </div>
+        </div>
+        <div class="absolute custom-img-position">
+            <img src="images/social-networking-pkV5c8kHuB.png" alt="">
+        </div>
+</body>
+
+</html>

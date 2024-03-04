@@ -11,15 +11,126 @@ body {
     overflow: hidden;
 }
 
+@media screen and (max-width:640px) {
+    .main-container {
+        margin-inline: 0.75rem !important;
+        margin-block: 1rem !important;
+        align-items: center !important;
+        justify-content: center !important;
+        height: 70vh;
+        word-wrap: break-word;
+    }
+
+    .main-headline {
+        font-size: clamp(2.6rem, 5vw, 10rem) !important;
+        text-align: center !important;
+    }
+
+    .main-para {
+        font-size: clamp(1rem, 5vw, 1.25rem) !important;
+        text-align: center !important;
+
+    }
+
+    .main-login-btn {
+        padding: 0.6rem 1.25rem !important;
+        font-size: 0.90rem !important;
+
+        margin-right: 0.5rem !important;
+    }
+
+
+    .main-create-btn {
+        padding: 0.65rem 1.25rem !important;
+        font-size: 0.75rem !important;
+    }
+
+}
+
+@media screen and (min-width:640px) and (max-width:768px) {
+    .main-container {
+        margin-inline: 1rem !important;
+        margin-block: 1rem !important;
+        align-items: center !important;
+        justify-content: center !important;
+        height: 70vh;
+        word-wrap: break-word;
+    }
+
+    .main-headline {
+        font-size: 4rem !important;
+        text-align: center !important;
+    }
+
+    .main-para {
+        font-size: 1.35rem !important;
+        text-align: center !important;
+
+    }
+
+    .main-login-btn {
+        padding: 0.6rem 1.25rem !important;
+        font-size: 0.95rem !important;
+
+        margin-right: 0.5rem !important;
+    }
+
+
+    .main-create-btn {
+        padding: 0.65rem 1.25rem !important;
+        font-size: 0.80rem !important;
+    }
+}
+
+@media screen and (min-width:768px) and (max-width:1024px) {
+    .main-container {
+        margin-inline: 1rem !important;
+        margin-block: 1rem !important;
+        align-items: center !important;
+        justify-content: center !important;
+        height: 75vh;
+        word-wrap: break-word;
+    }
+
+    .main-headline {
+        font-size: 4.5rem !important;
+        text-align: center !important;
+    }
+
+    .main-para {
+        font-size: 1.55rem !important;
+        text-align: center !important;
+
+    }
+
+    .main-login-btn {
+        padding: 0.7rem 1.35rem !important;
+        font-size: 1rem !important;
+
+        margin-right: 0.5rem !important;
+    }
+
+
+    .main-create-btn {
+        padding: 0.7rem 1.3rem !important;
+        font-size: 0.85rem !important;
+    }
+}
+
+.main-container {
+    margin-top: 5rem;
+}
+
+
 .main-headline {
     font-family: "Codystar", sans-serif;
-    font-size: 5.7rem;
+    font-size: 5.5rem;
     text-align: right;
 }
 
 .main-para {
     font-family: "Darker Grotesque", sans-serif;
-    font-size: 2rem;
+    font-size: 1.75rem;
     text-align: right;
 }
 
@@ -37,6 +148,7 @@ body {
 .main-login-btn:hover {
     background-color: #d1575f;
 }
+
 .main-create-btn {
     background-color: transparent;
     color: #d34a52;
@@ -50,15 +162,4 @@ body {
 .main-create-btn:hover {
     background-color: #d1575f;
     color: white;
-}
-
-.custom-img-position {
-    left: -2rem;
-    bottom: -2rem;
-    z-index: -1;
-    opacity: 0.5;
-}
-
-.custom-img-position > img {
-    width: 35vw;
 }

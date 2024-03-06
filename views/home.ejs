@@ -12,18 +12,24 @@
 </head>
 
 <body>
-    <%- include("partials/navbar") %>
-        <div class="mx-16 flex flex-col items-end main-container">
-            <h1 class="hidden">SparkLine</h1>
-            <p class="main-headline">Spark conversations, share your world.</p>
-            <p class="main-para">Connect with friends, follow your interests, and join the <br> conversation on
-                SparkLine.
-            </p>
-            <div class="mt-5">
-                <a href="/signin" class="main-login-btn">SIGN IN</a>
-                <a href="/create" class="main-create-btn">CREATE ACCOUNT</a>
-            </div>
-        </div>
+    <%- include("partials/navbar",{loggedInUser}) %>
+        <!-- Insert element for flash -->
+        <% if(message.length){ %>
+            <%- include("partials/alert",{message}) %>
+                <% } %>
+                    <div class="mx-16 flex flex-col items-end main-container">
+                        <h1 class="hidden">SparkLine</h1>
+                        <p class="main-headline">Spark conversations, share your world.</p>
+                        <p class="main-para">Connect with friends, follow your interests, and join the <br>
+                            conversation
+                            on
+                            SparkLine.
+                        </p>
+                        <div class="mt-5">
+                            <a href="/signin" class="main-login-btn">SIGN IN</a>
+                            <a href="/create" class="main-create-btn">CREATE ACCOUNT</a>
+                        </div>
+                    </div>
 </body>
 
 </html>

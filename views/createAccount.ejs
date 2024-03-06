@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <%- include("partials/navbar") %>
+    <%- include("partials/navbar",{loggedInUser}) %>
         <div class="flex">
             <!-- Left Pane -->
             <div class="hidden lg:flex justify-center flex-1 bg-white text-black py-1.5">
@@ -266,6 +266,26 @@
                             </div>
                         </div>
                         <div>
+                            <label for="otp" class="block text-sm font-medium text-gray-700">Verify OTP<span
+                                    class="text-red-700">
+                                    *</span>
+                            </label>
+
+
+
+                            <div class="relative mt-2 rounded-md shadow-sm">
+                                <input type="text" id="otp" required
+                                    class="mt-1 p-2 w-full rounded-md  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300">
+
+                                <button type="button"
+                                    class="absolute bottom-0 right-0 flex items-center p-2 custom-text-pink-400 border-s-2 border-red-100"
+                                    style="height:92%" id="generateotp">Generate
+                                    OTP</button>
+                            </div>
+                            <div id="otpMessage"></div>
+
+                        </div>
+                        <div>
                             <button type="submit" class="w-full custom-bg-pink-400 text-white p-2 rounded-md">Sign
                                 Up</button>
                         </div>
@@ -278,7 +298,17 @@
             </div>
         </div>
 </body>
+
+
 <script>
+
+    let abc = undefined;
+    const otpGenerateButton = document.getElementById("generateotp");
+    otpGenerateButton.addEventListener("click", async () => {
+        const response = await fetch("http://localhost:3000/generateotp");
+        const result = await response.json();
+        abc = result.otp;
+    })
 
     const pwd = document.getElementById('password');
     const cnfPassword = document.getElementById('c_password');
@@ -308,28 +338,37 @@
 
         const response = await fetch("/check/" + name);
         const isAvailableUsername = document.getElementById("isAvailableUsername");
-        if (!response.ok) {
-            isAvailableUsername.innerHTML = "Username not available!";
-        }
-
         const user = await response.json();
-
         if (user.available) {
             isAvailable = true;
             isAvailableUsername.innerHTML = "<span class='text-green-500 !mt-1'>Username available!</span>";
-        }
-
-        else {
+        } else {
             isAvailable = false;
             isAvailableUsername.innerHTML = "<span class='text-red-700 !mt-1'>Username not available!</span>";
         }
     }
 
+
     nameInput.addEventListener("input", checkAvl);
+    const otpMessage = document.getElementById("otpMessage");
+
+    const checkOtp = () => {
+        const otpV = document.getElementById("otp").value;
+        if (otpV !== abc) {
+            otpMessage.innerHTML = "<p class='text-red-700'>Invalid OTP!</p>";
+            return false;
+        }
+        otpMessage.innerHTML = "<p class='text-green-500'>Valid OTP</p>";
+        return true;
+
+    }
 
     const form = document.getElementById("createAccForm")
-    form.addEventListener("submit", (e) => {
-        checkAvl();
+    form.addEventListener("submit", async (e) => {
+
+        if (!checkOtp()) {
+            e.preventDefault();
+        }
 
         if (passwordMatched && !isAvailable) {
             e.preventDefault();

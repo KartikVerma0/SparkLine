@@ -55,6 +55,12 @@
     font-size: 2.5rem;
 }
 
+.nav-account {
+    font-size: 1rem;
+    font-family: "Chakra Petch", sans-serif;
+    color: rgb(65, 65, 65);
+}
+
 .nav-login-btn {
     background-color: #d34a52;
     color: white;

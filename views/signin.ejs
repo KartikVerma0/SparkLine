@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <%- include("partials/navbar") %>
+    <%- include("partials/navbar",{loggedInUser}) %>
         <div class="flex h-full">
             <!-- Left Pane -->
             <div class="hidden lg:flex justify-center flex-1 bg-white text-black  pt-3.5">
@@ -214,8 +214,13 @@
                 </div> -->
                     <form action="/signin" method="POST" class="space-y-4">
                         <!-- Your form elements go here -->
+                        <p class="text-red-700">
+                            <%=message%>
+                        </p>
                         <div>
-                            <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+                            <label for="username" class="block text-sm font-medium text-gray-700">Username<span
+                                    class="text-red-700">
+                                    *</span></label>
                             <input type="text" id="username" name="username"
                                 class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300">
                         </div>
@@ -225,7 +230,9 @@
                             class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300">
                     </div> -->
                         <div>
-                            <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                            <label for="password" class="block text-sm font-medium text-gray-700">Password<span
+                                    class="text-red-700">
+                                    *</span></label>
                             <input type="password" id="password" name="password"
                                 class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300">
                         </div>

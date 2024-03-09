@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="images/logo.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/partials/navbar.css">
+    <link rel="stylesheet" href="css/partials/post.css">
+    <link rel="stylesheet" href="css/posts.css">
+    <title>Posts - SparkLine</title>
+</head>
+
+<body>
+    <%- include("partials/navbar",{loggedInUser}) %>
+        <% if(message.length){ %>
+            <%- include("partials/alert",{message,status}) %>
+                <% } %>
+                    <form action="/posts" method="post" enctype="multipart/form-data"
+                        class="editor mx-auto w-10/12 flex flex-col text-gray-800 border border-rose-300 p-4 shadow-lg max-w-2xl rounded-md mt-4">
+                        <textarea
+                            class="description bg-gray-50 sec p-3 h-16 border border-rose-300 outline-none mb-4 rounded-md custom-font-chakraPetch"
+                            spellcheck="false" placeholder="Give speech to your words" name="posttext"></textarea>
+                        <input type="file" name="media"
+                            class="relative mb-2 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-secondary-500 custom-bg-pink-100 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-surface transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:me-3 file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-e file:border-solid file:border-inherit file:bg-transparent file:px-3  file:py-[0.32rem] file:text-surface focus:border-primary focus:text-red-400 focus:shadow-inset focus:outline-none dark:border-rose-400 dark:text-rose-400  file:dark:text-rose-400">
+                        <div class="buttons flex">
+                            <button
+                                class="btn border border-red-500 p-1 px-4 font-semibold cursor-pointer text-white custom-bg-pink-400 rounded-md custom-font-chakraPetch">
+                                Post</button>
+                        </div>
+                    </form>
+
+                    <div class="mt-20">
+                        <% posts.forEach((post)=>{ %>
+                            <%- include('partials/post',{post}) %>
+                                <%}) %>
+                    </div>
+</body>
+
+</html>

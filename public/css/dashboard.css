@@ -1,0 +1,38 @@
+@import url("https://fonts.googleapis.com/css2?family=Beau+Rivage&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&display=swap");
+
+.custom-font-chakraPetch {
+    font-family: "Chakra Petch", sans-serif;
+}
+
+.custom-bg-orange-normal {
+    background-color: #d1575f !important;
+}
+
+.custom-bg-orange-light {
+    background-color: #e96871 !important;
+}
+
+.custom-bg-orange-extralight {
+    background-color: #ffc4c8 !important;
+}
+
+
+.profileEditIcon {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 9999px;
+    visibility: hidden;
+    cursor: pointer;
+}
+
+.profile-placeholder:hover .profileEditIcon {
+    visibility: visible !important;
+}
+
+header,
+section {
+    transition: all 0.25s ease-in;
+}

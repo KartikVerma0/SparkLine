@@ -1,0 +1,15 @@
+<div class="fixed top-52 left-44 right-44 bg-red-100 h-52 z-10 rounded-lg profilePicUploadModal hidden">
+    <span class="cross-mark-span"><i class="fa-regular fa-circle-xmark"></i></span>
+    <form action="/user/edit/profilepicture" method="post" class="flex flex-col items-center justify-center h-full"
+        enctype="multipart/form-data">
+        <input type="file" class="file:mr-4 file:py-2 file:px-4
+        file:rounded-full file:border-0
+        file:text-sm file:font-semibold
+        file:bg-red-50 file:text-red-700
+        hover:file:bg-red-100 block text-sm text-slate-500 fileInput" name="pic" id="pic">
+        <button type="submit"
+            class="px-4 py-2 text-xs md:text-base lg:text-base bg-red-600 hover:bg-red-500 text-white rounded-full mt-5">Change
+            Profile
+            Picture</button>
+    </form>
+</div>

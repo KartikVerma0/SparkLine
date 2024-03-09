@@ -5,21 +5,11 @@ const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
 const otpGenerator = require("otp-generator")
 
-const User = require("../models/User")
+const User = require("../models/User");
 
-Router.get("/create", (req, res) => {
-    res.render("createAccount", { loggedInUser: req.session.username });
-});
+const userRoutes = require("./user");
 
-Router.post("/create", async (req, res) => {
-    const { username, email, password, mobile, gender } = req.body;
-    const passwordhash = await bcrypt.hash(password, 12);
-    let newUser = await User.create({
-        username, passwordhash, gender, mobile, email
-    })
-    req.flash("success", "Successfully Created you Account!")
-    res.redirect("/")
-});
+Router.use("/user", userRoutes);
 
 Router.get('/check/:username', async (req, res) => {
     const name = req.params.username;
@@ -45,15 +35,20 @@ Router.post("/signin", async (req, res) => {
     }
 
     let user = await User.findOne({ where: { username } });
+    if (!user) {
+        req.flash('error', 'Invalid Username and Password Combination!');
+        return res.redirect("/signin");
+    }
     let allowLoggin = await bcrypt.compare(password, user.passwordhash);
     if (!allowLoggin) {
         req.flash('error', 'Invalid Username and Password Combination!');
         return res.redirect("/signin");
     }
+    req.session.userid = user.userid;
     req.session.username = username;
     res.locals.loggedInUser = username;
     req.flash("success", "Successfully Logged In");
-    return res.redirect("/");
+    return res.redirect(req.session.redirectURL || "/");
 });
 
 Router.get("/logout", (req, res) => {
@@ -63,6 +58,8 @@ Router.get("/logout", (req, res) => {
     res.redirect('/');
 
 })
+
+//configure otp generation according to user data
 
 Router.get("/generateotp", (req, res) => {
     let transport = nodemailer.createTransport({

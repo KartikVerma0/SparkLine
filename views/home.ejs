@@ -15,7 +15,7 @@
     <%- include("partials/navbar",{loggedInUser}) %>
         <!-- Insert element for flash -->
         <% if(message.length){ %>
-            <%- include("partials/alert",{message}) %>
+            <%- include("partials/alert",{message,status}) %>
                 <% } %>
                     <div class="mx-16 flex flex-col items-end main-container">
                         <h1 class="hidden">SparkLine</h1>
@@ -27,7 +27,7 @@
                         </p>
                         <div class="mt-5">
                             <a href="/signin" class="main-login-btn">SIGN IN</a>
-                            <a href="/create" class="main-create-btn">CREATE ACCOUNT</a>
+                            <a href="/user/create" class="main-create-btn">CREATE ACCOUNT</a>
                         </div>
                     </div>
 </body>

@@ -211,13 +211,13 @@
                 <div class="mt-4 text-sm text-gray-600 text-center">
                     <p>or with email</p>
                 </div> -->
-                    <form action="/create" method="POST" class="space-y-4" id="createAccForm">
+                    <form action="/user/create" method="POST" class="space-y-4" id="createAccForm">
                         <!-- Your form elements go here -->
                         <div>
                             <label for="username" class="block text-sm font-medium text-gray-600">Username<span
                                     class="text-red-700">
                                     *</span></label>
-                            <input type="text" id="username" name="username"
+                            <input type="text" id="username" name="username" autofocus
                                 class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300"
                                 required>
                             <p id="isAvailableUsername" class="text-red-700"></p>

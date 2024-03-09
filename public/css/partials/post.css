@@ -1,0 +1,35 @@
+.custom-bg-pink-100 {
+    background-color: #ffe6e7 !important;
+}
+
+.custom-bg-pink-200 {
+    background-color: #f68289 !important;
+}
+
+.custom-bg-pink-300 {
+    background-color: #ff676f !important;
+}
+
+.custom-bg-pink-400 {
+    background-color: #d34a52 !important;
+}
+
+.custom-text-pink-100 {
+    color: #ffe6e7 !important;
+}
+
+.custom-text-pink-200 {
+    color: #f68289 !important;
+}
+
+.custom-text-pink-300 {
+    color: #ff676f !important;
+}
+
+.custom-text-pink-400 {
+    color: #d34a52 !important;
+}
+
+.custom-font-chakraPetch {
+    font-family: "Chakra Petch", sans-serif;
+}

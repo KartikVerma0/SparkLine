@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="shortcut icon" href="images/logo.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/partials/navbar.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/partials/uploadModal.css">
+    <title>Dashboard</title>
+</head>
+
+<body class="relative">
+
+
+    <%- include("partials/navbar",{loggedInUser}) %>
+        <section class=" py-1 bg-blueGray-50">
+            <% if(successMessage.length) {%>
+                <%- include("partials/alert",{message:successMessage, status:true}) %>
+                    <% } %>
+                        <% if(errorMessage.length) {%>
+                            <%- include("partials/alert",{message:errorMessage,status:false}) %>
+                                <% } %>
+                                    <div class="w-full lg:w-8/12 px-4 mx-auto mt-6">
+                                        <div
+                                            class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0 custom-bg-orange-extralight">
+                                            <div class="rounded-t mb-0 px-6 py-6">
+                                                <div class="text-center flex justify-between">
+                                                    <h6
+                                                        class="text-blueGray-700 text-xl font-bold custom-font-chakraPetch">
+                                                        My account
+                                                    </h6>
+                                                    <div>
+                                                        <button
+                                                            class="text-white active:bg-pink-600 font-bold custom-font-chakraPetch uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150 custom-bg-orange-normal"
+                                                            type="button" id="editBtn">
+                                                            Edit
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
+                                                <form id="infoForm">
+                                                    <h6
+                                                        class="text-blueGray-400 text-sm mt-3 mb-6 font-bold custom-font-chakraPetch uppercase">
+                                                        User Information
+                                                    </h6>
+                                                    <figure class="flex flex-col mb-5 items-center">
+                                                        <div class="relative mb-2 profile-placeholder">
+                                                            <img src="<%=loggedInUser.pic||'images/male-placeholder.jpeg'%>"
+                                                                alt="Profile Picture" class="h-24 w-24 rounded-full"
+                                                                id="pic">
+                                                            <div
+                                                                class="profileEditIcon flex justify-center items-center text-white">
+                                                                <i class="fa-solid fa-pen-to-square"></i>
+                                                            </div>
+                                                        </div>
+
+                                                        <figcaption
+                                                            class="mx-auto custom-font-chakraPetch font-semibold">
+                                                            Profile
+                                                            Picture
+                                                        </figcaption>
+                                                    </figure>
+                                                    <div class="flex flex-wrap">
+                                                        <div class="w-full lg:w-6/12 px-4">
+                                                            <div class="relative w-full mb-3">
+                                                                <label
+                                                                    class="block uppercase text-blueGray-600 text-xs font-semibold mb-2 custom-font-chakraPetch"
+                                                                    htmlfor="grid-password">
+                                                                    Username
+                                                                </label>
+                                                                <input type="text"
+                                                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 disabled:bg-gray-200 disabled:text-gray-800"
+                                                                    value="<%= loggedInUser.username %>" disabled
+                                                                    name="username" id="username">
+                                                            </div>
+                                                        </div>
+                                                        <div class="w-full lg:w-6/12 px-4">
+                                                            <div class="relative w-full mb-3">
+                                                                <label
+                                                                    class="block uppercase text-blueGray-600 text-xs font-semibold mb-2 custom-font-chakraPetch"
+                                                                    htmlfor="grid-password">
+                                                                    Email address
+                                                                </label>
+                                                                <input type="email"
+                                                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 disabled:bg-gray-200 disabled:text-gray-800"
+                                                                    value="<%= loggedInUser.email %>" disabled
+                                                                    name="email" id="email">
+                                                            </div>
+                                                        </div>
+                                                        <div class="w-full lg:w-6/12 px-4">
+                                                            <div class="relative w-full mb-3">
+                                                                <label
+                                                                    class="block uppercase text-blueGray-600 text-xs font-semibold mb-2 custom-font-chakraPetch"
+                                                                    htmlfor="grid-password">
+                                                                    First Name
+                                                                </label>
+                                                                <input type="text"
+                                                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 disabled:bg-gray-200 disabled:text-gray-800"
+                                                                    value="<%= loggedInUser.firstname %>" disabled
+                                                                    name="firstname" id="firstname">
+                                                            </div>
+                                                        </div>
+                                                        <div class="w-full lg:w-6/12 px-4">
+                                                            <div class="relative w-full mb-3">
+                                                                <label
+                                                                    class="block uppercase text-blueGray-600 text-xs font-semibold mb-2 custom-font-chakraPetch"
+                                                                    htmlfor="grid-password">
+                                                                    Last Name
+                                                                </label>
+                                                                <input type="text"
+                                                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 disabled:bg-gray-200 disabled:text-gray-800"
+                                                                    value="<%= loggedInUser.lastname %>" disabled
+                                                                    name="lastname" id="lastname">
+                                                            </div>
+                                                        </div>
+                                                        <div class="w-full lg:w-6/12 px-4">
+                                                            <div class="relative w-full mb-3">
+                                                                <label
+                                                                    class="block uppercase text-blueGray-600 text-xs font-semibold mb-2 custom-font-chakraPetch"
+                                                                    htmlfor="grid-password">
+                                                                    Gender
+                                                                </label>
+                                                                <% if(loggedInUser.gender==='M' ) {%>
+                                                                    <div>
+                                                                        <input type="radio" id="m_gender" name="gender"
+                                                                            class="mr-1 gender" disabled checked
+                                                                            value="M"><label for="m_gender"
+                                                                            class="custom-font-chakraPetch text-sm">Male</label>
+                                                                    </div>
+                                                                    <div>
+                                                                        <input type="radio" id="f_gender" name="gender"
+                                                                            class="mr-1 gender" disabled
+                                                                            value="F"><label for="f_gender"
+                                                                            class="custom-font-chakraPetch text-sm">Female</label>
+                                                                    </div>
+                                                                    <% }else if(loggedInUser.gender==='F' ) {%>
+                                                                        <div>
+                                                                            <input type="radio" id="m_gender"
+                                                                                name="gender" class="mr-1 gender"
+                                                                                disabled value="M"><label for="m_gender"
+                                                                                class="custom-font-chakraPetch text-sm">Male</label>
+                                                                        </div>
+                                                                        <div>
+                                                                            <input type="radio" id="f_gender"
+                                                                                name="gender" class="mr-1 gender"
+                                                                                checked disabled value="F"><label
+                                                                                for="f_gender"
+                                                                                class="custom-font-chakraPetch text-sm">Female</label>
+                                                                        </div>
+                                                                        <% } %>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <hr class="mt-6 border-b-1 border-blueGray-300">
+
+                                                    <h6
+                                                        class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase custom-font-chakraPetch">
+                                                        Contact Information
+                                                    </h6>
+                                                    <div class="flex flex-wrap">
+                                                        <div class="lg:w-12/12 px-4">
+                                                            <div class="relative w-full mb-3">
+                                                                <label
+                                                                    class="block uppercase text-blueGray-600 text-xs font-semibold mb-2 custom-font-chakraPetch"
+                                                                    htmlfor="grid-password">
+                                                                    Mobile Number
+                                                                </label>
+                                                                <input type="number"
+                                                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 disabled:bg-gray-200 disabled:text-gray-800"
+                                                                    value="<%= loggedInUser.mobile %>" disabled
+                                                                    name="mobile" id="mobile">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <hr class="mt-6 border-b-1 border-blueGray-300">
+
+                                                    <h6
+                                                        class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase custom-font-chakraPetch">
+                                                        About Me
+                                                    </h6>
+                                                    <div class="flex flex-wrap">
+                                                        <div class="w-full lg:w-12/12 px-4">
+                                                            <div class="relative w-full mb-3">
+                                                                <label
+                                                                    class="block uppercase text-blueGray-600 text-xs font-semibold mb-2 custom-font-chakraPetch"
+                                                                    htmlfor="grid-password">
+                                                                    Profile Text
+                                                                </label>
+                                                                <textarea type="text"
+                                                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 disabled:bg-gray-200 disabled:text-gray-800"
+                                                                    rows="4" disabled name="profiletext"
+                                                                    id="profiletext"> <%= loggedInUser.profiletext %></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex flex-wrap">
+                                                        <button
+                                                            class="text-white active:bg-pink-600 font-bold custom-font-chakraPetch uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150 custom-bg-orange-normal hidden"
+                                                            type="submit" id="saveBtn">
+                                                            Save
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+        </section>
+        <%- include("partials/uploadModal") %>
+</body>
+
+<script>
+
+    function revertChanges(originalValueArray, inputs, textArea) {
+        let counter = 0;
+        inputs.forEach((inp) => {
+            if (!(inp.id === "username" || inp.id === "email" || inp.id === "m_gender" || inp.id === "f_gender" || inp.id === "pic")) {
+                inp.value = originalValueArray[counter++];
+                inp.setAttribute('disabled', true);
+            }
+            if (inp.id === "m_gender") {
+                if (originalValueArray[counter]) {
+                    inp.checked = true;
+                } else {
+                    inp.checked = false;
+                }
+                counter++;
+
+                inp.setAttribute('disabled', true);
+
+            }
+            if (inp.id === "f_gender") {
+                if (originalValueArray[counter]) {
+                    inp.checked = true;
+                } else {
+                    inp.checked = false;
+                }
+                counter++;
+
+                inp.setAttribute('disabled', true);
+            }
+
+        })
+        textArea.forEach((inp) => {
+            inp.value = originalValueArray[counter++];
+            inp.setAttribute('disabled', true);
+        })
+    }
+
+    const editButton = document.getElementById("editBtn");
+    const inputs = document.querySelectorAll("input");
+    const textArea = document.querySelectorAll("textarea");
+    const saveBtn = document.getElementById("saveBtn");
+    const infoForm = document.getElementById("infoForm");
+
+    let username = document.getElementById("username");
+    let email = document.getElementById("email");
+    let firstname = document.getElementById("firstname");
+    let lastname = document.getElementById("lastname");
+    let genders = document.getElementsByClassName("gender");
+    let mobile = document.getElementById("mobile");
+    let profiletext = document.getElementById("profiletext");
+
+
+
+    let originalValueArray = [firstname.value, lastname.value, genders.m_gender.attributes.checked ? true : false, genders.f_gender.attributes.checked ? true : false, mobile.value, profiletext.value];
+
+    let isEditable = false;
+    editButton.addEventListener("click", () => {
+        if (!isEditable) {
+            editButton.innerHTML = "<i class='fa-solid fa-xmark'></i>";
+            saveBtn.classList.remove("hidden");
+            inputs.forEach((inp) => {
+                if (!(inp.id === "username" || inp.id === "email"))
+                    inp.removeAttribute('disabled');
+            })
+            textArea.forEach((inp) => {
+                inp.removeAttribute('disabled');
+            })
+            isEditable = true;
+        } else {
+            editButton.innerHTML = "EDIT";
+            saveBtn.classList.add("hidden");
+            revertChanges(originalValueArray, inputs, textArea);
+            isEditable = false;
+        }
+
+    })
+    saveBtn.addEventListener("click", () => {
+        saveBtn.classList.add("hidden");
+        inputs.forEach((inp) => {
+            inp.setAttribute('disabled', true);
+        })
+        textArea.forEach((inp) => {
+            inp.setAttribute('disabled', true);
+        })
+    })
+</script>
+<script>
+    infoForm.addEventListener("submit", async (e) => {
+        editButton.innerHTML = "EDIT";
+        isEditable = false;
+        e.preventDefault();
+        let usernameV = username.value;
+        let emailV = email.value;
+        let firstnameV = firstname.value;
+        let lastnameV = lastname.value;
+        let mobileV = mobile.value;
+        let profiletextV = profiletext.value;
+
+        let m_genderV = genders.m_gender.checked ? true : false;
+        let f_genderV = genders.f_gender.checked ? true : false;
+
+        const payload = {
+            firstname: firstnameV,
+            lastname: lastnameV,
+            gender: m_genderV ? "M" : "F",
+            mobile: mobileV,
+            profiletext: profiletextV
+        }
+
+        const response = await fetch("/user/edit", {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload)
+
+        })
+        const result = await response.json();
+
+        if (!result.status) {
+            revertChanges(originalValueArray, inputs, textArea);
+        } else {
+            originalValueArray = [firstnameV, lastnameV, m_genderV, f_genderV, mobileV, profiletextV];
+            revertChanges(originalValueArray, inputs, textArea);
+
+        }
+    })
+</script>
+<script>
+    const profilePictureEditBtn = document.getElementsByClassName("profileEditIcon")[0];
+    const profilePicUploadModal = document.getElementsByClassName("profilePicUploadModal")[0];
+    const closePicUploadModalBtn = document.getElementsByClassName("cross-mark-span")[0];
+    const fileInput = document.getElementsByClassName("fileInput")[0];
+
+    const section = document.querySelector("section");
+    const header = document.querySelector("header");
+
+
+    profilePictureEditBtn.addEventListener("click", () => {
+        profilePicUploadModal.classList.remove("hidden");
+        section.style = "filter:blur(10px)";
+        header.style = "filter:blur(10px)";
+
+    })
+    closePicUploadModalBtn.addEventListener("click", () => {
+        profilePicUploadModal.classList.add("hidden");
+        section.style = "";
+        header.style = "";
+    })
+</script>
+
+</html>

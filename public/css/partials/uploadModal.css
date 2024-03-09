@@ -1,0 +1,14 @@
+.cross-mark-span {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    color: white;
+    background-color: red;
+    width: 18px;
+    aspect-ratio: 1;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 9999px;
+}

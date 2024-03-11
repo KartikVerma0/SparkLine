@@ -47,7 +47,7 @@ Router.post("/edit", isLoggedIn, async (req, res) => {
 Router.post("/edit/profilepicture", isLoggedIn, upload.single('pic'), async (req, res) => {
     const username = req.session.username;
     try {
-        await User.update({ pic: req.file.path.substring(7) }, { where: { username: username } });
+        await User.update({ pic: req.file.path.substring(6) }, { where: { username: username } });
         req.flash("success", "Successfully Uploaded profile picture");
         res.redirect("/dashboard");
     } catch {

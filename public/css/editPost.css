@@ -1,0 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Beau+Rivage&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&display=swap");
+
+.custom-font-chakraPetch {
+    font-family: "Chakra Petch", sans-serif;
+}
+
+.custom-bg-orange-normal {
+    background-color: #d1575f !important;
+}
+
+.custom-bg-orange-light {
+    background-color: #e96871 !important;
+}
+
+.custom-bg-orange-extralight {
+    background-color: #ffc4c8 !important;
+}

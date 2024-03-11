@@ -48,12 +48,12 @@ Router.post("/signin", async (req, res) => {
     req.session.username = username;
     res.locals.loggedInUser = username;
     req.flash("success", "Successfully Logged In");
-    return res.redirect(req.session.redirectURL || "/");
+    return res.redirect(req.session.redirectURL || "/posts");
 });
 
 Router.get("/logout", (req, res) => {
     req.session.username = undefined;
-
+    req.session.userid = undefined;
     req.flash("success", "Successfully Logged Out");
     res.redirect('/');
 
@@ -61,12 +61,18 @@ Router.get("/logout", (req, res) => {
 
 //configure otp generation according to user data
 
-Router.get("/generateotp", (req, res) => {
+Router.get("/generateotp/:email", (req, res) => {
+    const { email } = req.params;
+
+    if (!email) {
+        return res.status(400).json({ otp: "Email not valid" });
+    }
+
     let transport = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: "kartikvr20@gmail.com",
-            pass: "kxjtddugspuaxcgh"
+            user: process.env.NODEMAILER_EMAIL,
+            pass: process.env.NODEMAILER_PASS
         },
         tls: {
             rejectUnauthorized: false
@@ -75,11 +81,11 @@ Router.get("/generateotp", (req, res) => {
 
     let otp = otpGenerator.generate(6);
     let options = {
-        to: "katik2129.be21@chitkara.edu.in",
-        from: "kartikvr20@gmail.com",
-        subject: "hi",
-        text: `Your OTP: ${otp}`,
-        html: `<h1>Your OTP: ${otp}</h1>`
+        to: email,
+        from: process.env.NODEMAILER_EMAIL,
+        subject: `SparkLine - OTP ${otp}`,
+        text: `Your Email verification OTP: ${otp}`,
+        html: `<h2>Your Email verification OTP: ${otp}</h2>`
 
     }
     transport.sendMail(options, (err) => {

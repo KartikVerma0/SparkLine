@@ -1,6 +1,6 @@
-if (process.env.NODE_ENV !== 'production') {
-    require("dotenv").config();
-}
+// if (process.env.NODE_ENV !== 'production') {
+require("dotenv").config();
+// }
 const express = require("express");
 const app = express();
 const session = require("express-session");
@@ -26,6 +26,7 @@ const path = require("path");
 const pagesRoutes = require("./routes/pages");
 const authRoutes = require("./routes/auth");
 
+app.set("views", path.join(__dirname, "/views"));
 app.set("view engine", "ejs");
 
 app.use(express.static(path.join(__dirname, "public")));

@@ -306,7 +306,7 @@
     const otpGenerateButton = document.getElementById("generateotp");
     otpGenerateButton.addEventListener("click", async () => {
         const email = document.getElementById("email").value;
-        const response = await fetch(`http://localhost:3000/generateotp/${email}`);
+        const response = await fetch(`https://sparkline-kartikverma0s-projects.vercel.app/generateotp/${email}`);
         const result = await response.json();
         abc = result.otp;
     })

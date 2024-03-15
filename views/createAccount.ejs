@@ -334,9 +334,10 @@
 
     let isAvailable = false;
     const nameInput = document.getElementById("username");
+    let debounceTimer;
     const checkAvl = async () => {
-        const name = nameInput.value;
 
+        const name = nameInput.value;
         const response = await fetch("/check/" + name);
         const isAvailableUsername = document.getElementById("isAvailableUsername");
         const user = await response.json();
@@ -347,10 +348,19 @@
             isAvailable = false;
             isAvailableUsername.innerHTML = "<span class='text-red-700 !mt-1'>Username not available!</span>";
         }
+
     }
 
 
-    nameInput.addEventListener("input", checkAvl);
+    const debounce = (func, delay) => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(func, delay);
+    }
+
+    // nameInput.addEventListener("input", checkAvl);
+    nameInput.addEventListener("input", () => {
+        debounce(checkAvl, 500);
+    });
     const otpMessage = document.getElementById("otpMessage");
 
     const checkOtp = () => {

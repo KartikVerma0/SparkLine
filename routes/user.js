@@ -3,8 +3,23 @@ const Router = express.Router();
 
 const bcrypt = require("bcrypt");
 const multer = require("multer");
+const cloudinary = require("cloudinary").v2;
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
 
-const upload = multer({ dest: 'public/uploads/' })
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_SECRET,
+});
+
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: "sparkline/users",
+    },
+});
+
+const upload = multer({ storage: storage })
 
 const User = require("../models/User")
 
@@ -47,7 +62,7 @@ Router.post("/edit", isLoggedIn, async (req, res) => {
 Router.post("/edit/profilepicture", isLoggedIn, upload.single('pic'), async (req, res) => {
     const username = req.session.username;
     try {
-        await User.update({ pic: req.file.path.substring(6) }, { where: { username: username } });
+        await User.update({ pic: req.file.path }, { where: { username: username } });
         req.flash("success", "Successfully Uploaded profile picture");
         res.redirect("/dashboard");
     } catch {

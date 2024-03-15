@@ -1,8 +1,23 @@
 const express = require("express");
 const Router = express.Router();
+const cloudinary = require("cloudinary").v2;
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_SECRET,
+});
+
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: "sparkline",
+    },
+});
 
 const multer = require("multer");
-const upload = multer({ dest: 'public/uploads/posts' })
+const upload = multer({ storage: storage })
 
 const User = require("../models/User");
 const Post = require("../models/Post");
@@ -29,7 +44,7 @@ Router.post("/", isLoggedIn, upload.single('media'), async (req, res) => {
         await Post.create({
             posttext: posttext,
             userid: userid,
-            media: media.path.substring(6),
+            media: media.path,
         })
         req.flash("success", "Created new post")
     } catch (e) {
@@ -83,6 +98,23 @@ Router.post("/edit/:postid", isLoggedIn, async (req, res) => {
 Router.get("/delete/:postid", isLoggedIn, async (req, res) => {
     const { postid } = req.params;
     try {
+        const toBeDeletedPost = await Post.findOne({ where: { postid: postid } });
+        const url = toBeDeletedPost.media;
+        const regexPattern = /sparkline\/([^\/.]+)/;
+        const match = url.match(regexPattern);
+        console.log(match)
+        if (match) {
+            const desiredPart = match[1];
+            console.log(desiredPart); // Output: haiwxyhbvmzcbttxchfc.jpg
+            await cloudinary.api.delete_resources([`sparkline/${desiredPart}`], {
+                type: "upload",
+                resource_type: "image",
+            });
+        } else {
+            req.flash("error", "Problem deleting post image");
+            return res.redirect("/posts")
+        }
+
         await Post.destroy({
             where: {
                 postid: postid
@@ -91,7 +123,7 @@ Router.get("/delete/:postid", isLoggedIn, async (req, res) => {
         req.flash("success", "Successfully Deleted Post")
         res.redirect("/posts");
     } catch (e) {
-        req.flash("error");
+        req.flash("error", "Problem deleting post");
         return res.redirect("/posts");
     }
 })

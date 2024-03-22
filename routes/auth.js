@@ -2,12 +2,13 @@ const express = require("express");
 const Router = express.Router();
 
 const bcrypt = require("bcrypt");
-const nodemailer = require("nodemailer");
 const otpGenerator = require("otp-generator")
 
 const User = require("../models/User");
 
 const userRoutes = require("./user");
+
+const sendMail = require("../utils/email")
 
 Router.use("/user", userRoutes);
 
@@ -61,38 +62,21 @@ Router.get("/logout", (req, res) => {
 
 //configure otp generation according to user data
 
-Router.get("/generateotp/:email", (req, res) => {
+Router.get("/generateotp/:email", async (req, res) => {
     const { email } = req.params;
 
     if (!email) {
         return res.status(400).json({ otp: "Email not valid" });
     }
 
-    let transport = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: process.env.NODEMAILER_EMAIL,
-            pass: process.env.NODEMAILER_PASS
-        },
-        tls: {
-            rejectUnauthorized: false
-        }
-    });
-
-    let otp = otpGenerator.generate(6);
-    let options = {
-        to: email,
-        from: process.env.NODEMAILER_EMAIL,
-        subject: `SparkLine - OTP ${otp}`,
-        text: `Your Email verification OTP: ${otp}`,
-        html: `<h2>Your Email verification OTP: ${otp}</h2>`
-
+    try {
+        let otp = otpGenerator.generate(6);
+        await sendMail(email, otp);
+        return res.json({ otp: otp })
+    } catch {
+        return res.json({ message: "Problem sending OTP mail" })
     }
-    transport.sendMail(options, (err) => {
-        if (err) console.log(err);
-    })
 
-    return res.json({ otp: otp })
 
 })
 

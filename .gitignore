@@ -2,4 +2,5 @@ node_modules/
 .env
 tests/
 public/uploads/
+public/images/
 .vercel

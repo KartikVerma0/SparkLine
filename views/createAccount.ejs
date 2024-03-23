@@ -304,11 +304,36 @@
 
     let abc = undefined;
     const otpGenerateButton = document.getElementById("generateotp");
+    const otpMessage = document.getElementById("otpMessage");
     otpGenerateButton.addEventListener("click", async () => {
         const email = document.getElementById("email").value;
-        const response = await fetch(`https://sparkline-kartikverma0s-projects.vercel.app/generateotp/${email}`);
-        const result = await response.json();
-        abc = result.otp;
+        if (email == null || email == undefined || email == '') {
+            otpMessage.innerHTML = "<p class='text-red-700'>Invalid email!</p>";
+        } else {
+            otpMessage.innerHTML = "<p class='text-slate-700'>Wait for <span id='countdown'>30</span>s to generate otp again!</p>";
+            otpGenerateButton.setAttribute("disabled", true);
+            otpGenerateButton.classList.remove("custom-text-pink-400")
+            otpGenerateButton.classList.add("text-slate-600")
+
+            let countdownElement = document.getElementById('countdown');
+            let remainingSeconds = 30;
+            const countdownInterval = setInterval(() => {
+                remainingSeconds--;
+                countdownElement.textContent = remainingSeconds;
+                if (remainingSeconds <= 0) {
+                    clearInterval(countdownInterval);
+                    otpMessage.innerHTML = "";
+                    otpGenerateButton.removeAttribute("disabled");
+                    otpGenerateButton.classList.add("custom-text-pink-400")
+                    otpGenerateButton.classList.remove("text-slate-600")
+                }
+            }, 1000)
+            const response = await fetch(`https://sparkline-kartikverma0s-projects.vercel.app/generateotp/${email}`);
+            // const response = await fetch(`http://localhost:3000/generateotp/${email}`);
+            const result = await response.json();
+            abc = result.otp;
+        }
+
     })
 
     const pwd = document.getElementById('password');
@@ -361,7 +386,6 @@
     nameInput.addEventListener("input", () => {
         debounce(checkAvl, 250);
     });
-    const otpMessage = document.getElementById("otpMessage");
 
     const checkOtp = () => {
         const otpV = document.getElementById("otp").value;
